@@ -22,16 +22,18 @@
 
 %% Step 1: Read Images
 % Read the reference image containing the object of interest.
-temp1 = imread('20130502_055000.png');
-boxImage = rgb2gray(temp1);
+temp1 = imread('house3.png');
+%boxImage = rgb2gray(temp1);
+boxImage = temp1;
 figure;
 imshow(boxImage);
 title('Image 1 (box)');
 
 %%
 % Read the target image containing a cluttered scene.
-temp2 = imread('20130928_154500.png');
-sceneImage = rgb2gray(temp2);
+temp2 = imread('house4.png');
+%sceneImage = rgb2gray(temp2);
+sceneImage = temp2;
 figure; 
 imshow(sceneImage);
 title('Image 2 (cluttered)');
@@ -79,8 +81,17 @@ title('Putatively Matched Points (Including Outliers)');
 % |estimateGeometricTransform| calculates the transformation relating the
 % matched points, while eliminating outliers. This transformation allows us
 % to localize the object in the scene.
+
+%Original code
 [tform, inlierBoxPoints, inlierScenePoints] = ...
     estimateGeometricTransform(matchedBoxPoints, matchedScenePoints, 'affine');
+
+%My getInliers
+% [inlierBoxPoints, inlierScenePoints] = ...
+%      getInliers(matchedBoxPoints, matchedScenePoints, 'affine');
+ 
+ %TODO delete
+ tform = 0;
 
 %%
 % Display the matching point pairs with the outliers removed
@@ -89,35 +100,14 @@ showMatchedFeatures(boxImage, sceneImage, inlierBoxPoints, ...
     inlierScenePoints, 'montage');
 title('Matched Points (Inliers Only)');
 
-%% 
-% Get the bounding polygon of the reference image.
-boxPolygon = [1, 1;...                           % top-left
-        size(boxImage, 2), 1;...                 % top-right
-        size(boxImage, 2), size(boxImage, 1);... % bottom-right
-        1, size(boxImage, 1);...                 % bottom-left
-        1, 1];                   % top-left again to close the polygon
-
-%%
-% Transform the polygon into the coordinate system of the target image.
-% The transformed polygon indicates the location of the object in the
-% scene.
-newBoxPolygon = transformPointsForward(tform, boxPolygon);    
-
-%%
-% Display the detected object.
-figure;
-imshow(sceneImage);
-hold on;
-line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'y');
-title('Detected Box');
-
 %% Step 7: Detect Another Object
 % Detect a second object by using the same steps as before.
 
 %%
 % Read an image containing the second object of interest.
-temp3 = imread('20130502_055000.png');
-elephantImage = rgb2gray(temp3);
+temp3 = imread('house3.png');
+%elephantImage = rgb2gray(temp3);
+elephantImage = temp3;
 figure;
 imshow(elephantImage);
 title('Image 3 (elephant)');
@@ -151,28 +141,15 @@ title('Putatively Matched Points (Including Outliers)');
 
 %% 
 % Estimate Geometric Transformation and Eliminate Outliers
+%Original code
 [tform, inlierElephantPoints, inlierScenePoints] = ...
     estimateGeometricTransform(matchedElephantPoints, matchedScenePoints, 'affine');
+
+%My getInliers
+% [tform, inlierBoxPoints, inlierScenePoints] = ...
+%      getInliers(matchedBoxPoints, matchedScenePoints, 'affine');
+ 
 figure;
 showMatchedFeatures(elephantImage, sceneImage, inlierElephantPoints, ...
     inlierScenePoints, 'montage');
 title('Matched Points (Inliers Only)');
-
-%% 
-% Display Both Objects
-elephantPolygon = [1, 1;...                                 % top-left
-        size(elephantImage, 2), 1;...                       % top-right
-        size(elephantImage, 2), size(elephantImage, 1);...  % bottom-right
-        1, size(elephantImage, 1);...                       % bottom-left
-        1,1];                         % top-left again to close the polygon
- 
-newElephantPolygon = transformPointsForward(tform, elephantPolygon);    
-
-figure;
-imshow(sceneImage);
-hold on;
-line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'y');
-line(newElephantPolygon(:, 1), newElephantPolygon(:, 2), 'Color', 'g');
-title('Detected Elephant and Box');
-
-%%
