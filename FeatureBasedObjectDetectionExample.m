@@ -22,7 +22,7 @@
 
 %% Step 1: Read Images
 % Read the reference image containing the object of interest.
-temp1 = imread('1.png');
+temp1 = imread('20130502_055000.png');
 boxImage = rgb2gray(temp1);
 figure;
 imshow(boxImage);
@@ -30,7 +30,7 @@ title('Image 1 (box)');
 
 %%
 % Read the target image containing a cluttered scene.
-temp2 = imread('15.png');
+temp2 = imread('20130928_154500.png');
 sceneImage = rgb2gray(temp2);
 figure; 
 imshow(sceneImage);
@@ -116,7 +116,7 @@ title('Detected Box');
 
 %%
 % Read an image containing the second object of interest.
-temp3 = imread('1.png');
+temp3 = imread('20130502_055000.png');
 elephantImage = rgb2gray(temp3);
 figure;
 imshow(elephantImage);
