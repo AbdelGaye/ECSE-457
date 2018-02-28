@@ -1,3 +1,8 @@
+directory = 'G:\train';
+folder = dir([directory '\*.png']);
+%Need to get only the name from folder struct
+imageset = getfield(folder, 'name');
+
 %Getting the image from the dataset
 image1 = '20130614_124600.png';
 
@@ -43,6 +48,7 @@ for j = 1:1:l
         end
     end
 end
+
 
 pck = correctMatches / size(tpout,2);
 
