@@ -20,9 +20,12 @@
 
 % Copyright 1993-2014 The MathWorks, Inc. 
 
+image1 = 'square3.jpg';
+image2 = 'square4.png';
+
 %% Step 1: Read Images
 % Read the reference image containing the object of interest.
-temp1 = imread('house3.png');
+temp1 = imread(image1);
 %boxImage = rgb2gray(temp1);
 boxImage = temp1;
 figure;
@@ -31,7 +34,7 @@ title('Image 1 (box)');
 
 %%
 % Read the target image containing a cluttered scene.
-temp2 = imread('house4.png');
+temp2 = imread(image2);
 %sceneImage = rgb2gray(temp2);
 sceneImage = temp2;
 figure; 
@@ -105,7 +108,7 @@ title('Matched Points (Inliers Only)');
 
 %%
 % Read an image containing the second object of interest.
-temp3 = imread('house3.png');
+temp3 = imread(image1);
 %elephantImage = rgb2gray(temp3);
 elephantImage = temp3;
 figure;
