@@ -20,26 +20,26 @@
 
 % Copyright 1993-2014 The MathWorks, Inc. 
 
-image1 = 'square3.jpg';
-image2 = 'square4.png';
+image1 = 'square2.jpg';
+image2 = 'square3.png';
 
 %% Step 1: Read Images
 % Read the reference image containing the object of interest.
 temp1 = imread(image1);
 %boxImage = rgb2gray(temp1);
 boxImage = temp1;
-figure;
-imshow(boxImage);
-title('Image 1 (box)');
+% figure;
+% imshow(boxImage);
+% title('Image 1 (box)');
 
 %%
 % Read the target image containing a cluttered scene.
 temp2 = imread(image2);
 %sceneImage = rgb2gray(temp2);
 sceneImage = temp2;
-figure; 
-imshow(sceneImage);
-title('Image 2 (cluttered)');
+% figure; 
+% imshow(sceneImage);
+% title('Image 2 (cluttered)');
 
 %% Step 2: Detect Feature Points
 % Detect feature points in both images.
@@ -111,9 +111,9 @@ title('Matched Points (Inliers Only)');
 temp3 = imread(image1);
 %elephantImage = rgb2gray(temp3);
 elephantImage = temp3;
-figure;
-imshow(elephantImage);
-title('Image 3 (elephant)');
+% figure;
+% imshow(elephantImage);
+% title('Image 3 (elephant)');
 
 %% 
 % Detect and visualize feature points.
@@ -130,7 +130,7 @@ title('100 Strongest Feature Points from Elephant Image');
 
 %% 
 % Match Features
-elephantPairs = matchFeatures(elephantFeatures, sceneFeatures, 'MaxRatio', 0.9);
+elephantPairs = matchFeatures(elephantFeatures, sceneFeatures);
 
 
 %%
