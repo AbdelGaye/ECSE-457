@@ -2,18 +2,16 @@ function f = keypointsfindmatch_func(image1, image2)
 
 %% Step 1: Read Images
 % Read the reference image containing the object of interest.
-temp1 = imread(image1);
+boxImage = imread(image1);
 %boxImage = rgb2gray(temp1);
-boxImage = temp1;
 % figure;
 % imshow(boxImage);
 % title('Image 1 (box)');
 
 %%
 % Read the target image containing a cluttered scene.
-temp2 = imread(image2);
+sceneImage = imread(image2);
 %sceneImage = rgb2gray(temp2);
-sceneImage = temp2;
 % figure; 
 % imshow(sceneImage);
 % title('Image 2 (cluttered)');

@@ -1,3 +1,4 @@
+%Getting the keypoints from the dataset
 im2 = 'coords.dat';
 M = csvread(im2);
 
@@ -9,7 +10,9 @@ img2 = 'image_3/000000_10.png';
 
 %Getting the keypoints from the program
 keypointsfindmatch_func(img1, img2);
-keypoints = load('info.mat');
+load('info.mat');
 
+points_img1 = matchedBoxPoints.Location;
+points_img2 = matchedScenePoints.Location;
 
 %Getting the size of M and N
