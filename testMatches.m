@@ -1,18 +1,18 @@
 %Getting the keypoints from the dataset
-directory = 'G:\image_2\';
+directory = 'image_2\';
 suffix = '*10.png';
 s = strcat(directory, suffix);
 folder = dir(s);
 %Need to get only the name from folder struct
 imageset = extractfield(folder, 'name');
 
-directory2 = 'G:\image_3\';
+directory2 = 'image_3\';
 s = strcat(directory2, suffix);
 folder2 = dir(s);
 %Need to get only the name from folder struct
 imageset2 = extractfield(folder2, 'name');
 
-directory = 'G:\CoordinateFiles\';
+directory = 'CoordinateFiles\';
 suffix = '*.dat';
 s = strcat(directory, suffix);
 folder3 = dir(s);
@@ -46,7 +46,7 @@ for k = 1:1:length(imageset)
         
         for m = 1:1:length(coords)
             
-            check = strsplit(string(coords(p)), '-');
+            check = strsplit(string(coords(m)), '-');
             check = strsplit(check(2), 'i');
             check = check(1);
             check{1}(end) = '';
@@ -55,25 +55,26 @@ for k = 1:1:length(imageset)
 
             if strcmp(check, imageset(k))
 
-                current_coord = coords(p);
+                current_coord = coords(m);
 
-                prefix = java.lang.String(coords(p));
+                prefix = java.lang.String(coords(m));
                 prefix = prefix.charAt(10);
                 
-                foo_im3 = strcat(directory, string(coords(p)));
-                foo_im3 = extractAfter(foo_im3, 73);
+                foo_im3 = strcat(directory, string(coords(m)));
+                foo_im3 = extractAfter(foo_im3, 70);
                 
-                foo_im2 = extractAfter(dat_im2, 73);
+                foo_im2 = extractAfter(dat_im2, 70);
                 
                 
                 if strcmp(prefix, '3') && strcmp(foo_im2, foo_im3)
-                    dat_im3 = strcat(directory, string(coords(p)));
+                    dat_im3 = strcat(directory, string(coords(m)));
                     N = transpose(csvread(dat_im3));
+                    break;
                 end
             
             end
         end 
-           
+       disp(p);    
     end
 
 %     img1 = strcat(directory, imagetset(k));
@@ -134,5 +135,6 @@ for k = 1:1:length(imageset)
 %     match_accuracy = matches / counter;
 %     accuracy = matches / dataset_size;
 %     
+    disp(k);
 end
 
