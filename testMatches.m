@@ -20,9 +20,10 @@ folder3 = dir(s);
 coords = extractfield(folder3, 'name');
 
 for k = 1:1:length(imageset)
-    
+    tic;
     for p = 1:1:length(coords)
         
+        flag = 0;
         check = strsplit(string(coords(p)), '-');
         check = strsplit(check(2), 'i');
         check = check(1);
@@ -40,41 +41,41 @@ for k = 1:1:length(imageset)
             if strcmp(prefix, '2') 
                 dat_im2 = strcat(directory, string(coords(p)));
                 M = transpose(csvread(dat_im2));
-            end
+                
+                for m = 1:1:length(coords)
             
+                    check = strsplit(string(coords(m)), '-');
+                    check = strsplit(check(2), 'i');
+                    check = check(1);
+                    check{1}(end) = '';
+
+                    check = strcat(check, '.png');
+
+                    if strcmp(check, imageset(k))
+
+                        current_coord = coords(m);
+
+                        prefix = java.lang.String(coords(m));
+                        prefix = prefix.charAt(10);
+
+                        foo_im3 = strcat(directory, string(coords(m)));
+                        foo_im3 = extractAfter(foo_im3, 70);
+
+                        foo_im2 = extractAfter(dat_im2, 70);
+
+
+                        if strcmp(prefix, '3') && strcmp(foo_im2, foo_im3)
+                            dat_im3 = strcat(directory, string(coords(m)));
+                            N = transpose(csvread(dat_im3));
+                            break;
+                        end
+
+                    end
+                end 
+            end
         end
-        
-        for m = 1:1:length(coords)
-            
-            check = strsplit(string(coords(m)), '-');
-            check = strsplit(check(2), 'i');
-            check = check(1);
-            check{1}(end) = '';
-
-            check = strcat(check, '.png');
-
-            if strcmp(check, imageset(k))
-
-                current_coord = coords(m);
-
-                prefix = java.lang.String(coords(m));
-                prefix = prefix.charAt(10);
-                
-                foo_im3 = strcat(directory, string(coords(m)));
-                foo_im3 = extractAfter(foo_im3, 70);
-                
-                foo_im2 = extractAfter(dat_im2, 70);
-                
-                
-                if strcmp(prefix, '3') && strcmp(foo_im2, foo_im3)
-                    dat_im3 = strcat(directory, string(coords(m)));
-                    N = transpose(csvread(dat_im3));
-                    break;
-                end
-            
-            end
-        end 
-       disp(p);    
+        disp(p);  
+        toc;
     end
 
 %     img1 = strcat(directory, imagetset(k));
