@@ -138,8 +138,16 @@ for k = 1:1:length(imageset)
             matches = matches + 1;
         end
     end
-
+    
+    %Matches: Increments when a dataset match is equal to a program match
+    %Counter: Incremets when a point from the dataset source image is similar to a point
+    %from the program source image
+    %Dataset_size: Size of M, number of matches dataset
+    
+    %Number of matches / number of keypoints that are similar to dataset
     match_accuracy(k) = matches / counter;
+    
+    %Number of matches / number of matches in dataset
     accuracy(k) = matches / dataset_size;
     
     saveMatrix(1) = dat_im3;
