@@ -84,7 +84,7 @@ for k = 1:1:length(imageset)
     disp(dat_im3);
     
     img1 = strcat(directory, imageset(k));
-    img2 = strcat(directory, imageset2(k));
+    img2 = strcat(directory2, imageset2(k));
 
     %Getting the keypoints from the program
     keypointsfindmatch_func(char(img1), char(img2));
@@ -139,12 +139,17 @@ for k = 1:1:length(imageset)
         end
     end
 
-    match_accuracy = matches / counter;
-    accuracy = matches / dataset_size;
+    match_accuracy(k) = matches / counter;
+    accuracy(k) = matches / dataset_size;
     
     saveMatrix(1) = dat_im3;
-    saveMatrix(2) = match_accuracy;
-    saveMatrix(3) = accuracy;
+    saveMatrix(2) = match_accuracy(k);
+    saveMatrix(3) = accuracy(k);
+    
+    if(k == 149)
+        saveMatrix(4) = mean(match_accuracy);
+        saveMatrix(5) = mean(accuracy);
+    end
     
     fprintf(fid, '%s,', saveMatrix{1,1:end}) ;
     fprintf(fid, '\n') ;
